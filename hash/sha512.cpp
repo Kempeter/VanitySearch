@@ -361,7 +361,7 @@ void hmac_sha512(unsigned char *key, int key_length, unsigned char *message, int
 
   uint8_t ipad[SHA512_BLOCK_SIZE];
   uint8_t opad[SHA512_BLOCK_SIZE];
-  uint8_t hash[SHA512_HASH_LENGTH];
+  uint8_t u8_hash[SHA512_HASH_LENGTH];
   int i;
 
   // TODO Handle key larger than 128
@@ -378,11 +378,11 @@ void hmac_sha512(unsigned char *key, int key_length, unsigned char *message, int
   CSHA512 h;
   h.WriteDirect128(ipad);
   h.Write(message, message_length);
-  h.Finalize(hash);
+  h.Finalize(u8_hash);
 
   h.Initialize();
   h.WriteDirect128(opad);
-  h.Write(hash, SHA512_HASH_LENGTH);
+  h.Write(u8_hash, SHA512_HASH_LENGTH);
   h.Finalize(digest);
 
 }
